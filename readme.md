@@ -15,7 +15,7 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 ## 準備
 
 
-* このリポジトリをクローンします。`git clone https://github.com/HiroKws/Laravel4-Vagrant`
+* このリポジトリをクローンします。`git clone git://github.com/HiroKws/Laravel4-Vagrant.git`
 * 新しく生成されたディレクトリーに移動し、`vagrant up`を実行します。
 * 最初に実行する時、Vagrantは仮想Boxイメージを取得する必要があります。転送速度は~300mb程度ですので、ダウンロード速度により多少の時間はかかります。
 * 続いてVagrantはパペットを使い、基本的な仮想Boxに対しLAMP関係の設定をします。(数分かかります。)、それからComposerのapp中のcomposer.jsonで定義されている全てのパッケージを取得する必要がありますので、最初の準備ではもう少し時間がかかります。
