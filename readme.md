@@ -9,7 +9,7 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 ホストマシンで必要なソフトウェアです。
 
 * VirtualBox - フリーな仮想化ソフトウェア [ダウンロード](https://www.virtualbox.org/wiki/Downloads)
-* Vagrant - Virtualbox イメージ操作ツール [Vagrant Home](https://www.vagrantup.com),Downloadボタンをクリックしてください
+* Vagrant - Virtualbox イメージ操作ツール [Vagrantトップページ](https://www.vagrantup.com) Downloadボタンをクリックしてください
 * Git - ソース管理 [ダウンロード](http://git-scm.com/downloads)
 
 ## 準備
@@ -55,13 +55,13 @@ VagrantのBoxに関係した基本的な設定情報です。
 
 ### PHP XDebug
 
-XDebugはビルドに含まれていますが、**デフォルトでは使用可能にしていません。** パフォーマンスに影響を与えるためです。
+XDebugはビルドに含まれていますが、 **デフォルトでは使用可能にしていません。** パフォーマンスに影響を与えるためです。
 
 #### XDebugを有効にする
 
 1. `puppet/manifests/phpbase.pp`の先頭を`$use_xdebug = "1"`に設定する
 2. 続いて`vagrant up`でBoxの準備を行います。もし、既に準備済みであれば`vagrant provision`コマンドを使用してください。
-3. これで、**9001ポート**でXDebugが使用できます。
+3. これで、 **9001ポート** でXDebugが使用できます。
 
 **XDebugツール**
 
@@ -78,7 +78,7 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 
 * `vagrant up` 仮想マシンを開始し準備する
 * `vagrant suspend` 基本的にマシンを'sleep'状態にします。バックアップを利用し再開するには`vagrant resume`を使用します。
-* `vagrant halt` マシンをシャットダウンします。再開には'vagrant up'を実行します。
+* `vagrant halt` マシンをシャットダウンします。再開には`vagrant up`を実行します。
 * `vagrant ssh` 仮想マシンへシェルアクセスします。
 
 ----
