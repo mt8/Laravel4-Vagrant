@@ -16,7 +16,7 @@ Vagrant::Config.run do |config|
         lv4_config.vm.host_name = "laravel"
         lv4_config.vm.share_folder("www", "/var/www", "./www", :extra => 'dmode=777,fmode=777')
         lv4_config.vm.provision :shell, :inline => "echo \"America/New_York\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
-
+        lv4_config.vm.provision :shell, :inline => "apt-get update --fix-missing"
         lv4_config.vm.provision :puppet do |puppet|
             puppet.manifests_path = "puppet/manifests"
             puppet.manifest_file  = "phpbase.pp"
@@ -24,7 +24,7 @@ Vagrant::Config.run do |config|
             #puppet.options = "--verbose --debug"
             #puppet.options = "--verbose"
         end
-        
+
         lv4_config.vm.provision :shell, :path => "puppet/scripts/enable_remote_mysql_access.sh"
     end
 end
