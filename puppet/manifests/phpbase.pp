@@ -1,14 +1,14 @@
 # Enable XDebug ("0" | "1")
-$use_xdebug = "0"
+$use_xdebug = "1"
 
 # Default path
-Exec 
+Exec
 {
   path => ["/usr/bin", "/bin", "/usr/sbin", "/sbin", "/usr/local/bin", "/usr/local/sbin"]
 }
 
-exec 
-{ 
+exec
+{
     'apt-get update':
         command => '/usr/bin/apt-get update',
         require => Exec['add php54 apt-repo']
