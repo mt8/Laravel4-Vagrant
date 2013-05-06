@@ -2,7 +2,9 @@
 
 Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 
-このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。
+このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。以下の変更を加えてあります。
+
+* `vagrant up`時にフェッチエラーが発生時、スクリプトが正常に終了しないため、Vagrantfileでapt-get...fix-missingを実行するように追加（問い合わせに対し、作者の方が答えて下さった内容を適用しました。）
 
 ## 動作要件
 
@@ -25,14 +27,6 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 
 
 例えば：`chmod -R 777 www/app/storage/`
-
-*追加(by HiroKws)* 'vagrant up'実行中に、パッケージの取得に失敗する場合、生成されたVagrantfileをエディターで開き、一部を以下のように修正してください。
-
-    lv4_config.vm.provision :shell, :inline => "echo \"America/New_York\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
-    lv4_config.vm.provision :shell, :inline => "apt-get update --fix-missing"
-    lv4_config.vm.provision :puppet do |puppet|
-
-真ん中の行、apt-get updateを実行する一行を加えます。（５月６日、Twitterにより作者の方に確認しました。）
 
 
 ## 使用法
@@ -92,3 +86,23 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 * Beanstalkd - 1.4.6
 * Redis - 2.2.12
 * Memcached - 1.4.13
+
+----
+##### 日本語版追記 #####
+
+試行錯誤の結果です。上手くupできないときは以下の方法をお試しください。
+
+
+1. 念の為、vagrant haltを実行（仮想マシンを停止させる）
+2. 念の為、vagrant destroyを実行（仮想マシンを削除する）
+3. 念の為、vagrant box remove precise32 virtualboxを実行（Vagrantにより保存されているPrecise32 boxをパージする）
+4. vagrant upを実行
+
+一度haltし、その後upで再起動すると以下のエラーが発生するようです。
+
+    ERROR
+    1396 (HY000)
+    at line 1
+    : Operation CREATE USER failed for 'root'@'%'
+
+スクリプトの一番最後であり、差し支えないものと思われます。既に最初のup実行でrootユーザーが作成されているにも関わらず、CREATE USERでユーザーを再度作成しようとし、エラーになっているものと考えられます。（多分CREATE USERの代わりにGRANTで行えば回避できるかと思われますが、現状でも差し支えなさそうなため、試していません。）
