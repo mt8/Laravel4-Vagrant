@@ -1,39 +1,52 @@
-# Laravel 4 w/ Vagrant
+# Laravel + Vagrant
 
-A basic Ubuntu 12.04 Vagrant setup with [Laravel4](http://four.laravel.com) and PHP 5.4.
+Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 
-## Requirements
+このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。
 
-* VirtualBox - Free virtualization software [Downloads](https://www.virtualbox.org/wiki/Downloads)
-* Vagrant - Tool for working with virtualbox images [Vagrant Home](https://www.vagrantup.com), click on 'download now link'
-* Git - Source Control Management [Downloads](http://git-scm.com/downloads)
+## 動作要件
 
-## Setup
+ホストマシンで必要なソフトウェアです。
 
+* VirtualBox - フリーな仮想化ソフトウェア [ダウンロード](https://www.virtualbox.org/wiki/Downloads)
+* Vagrant - Virtualbox イメージ操作ツール [Vagrant Home](https://www.vagrantup.com),Downloadボタンをクリックしてください
+* Git - ソース管理 [ダウンロード](http://git-scm.com/downloads)
 
-* Clone this repository `git clone http://github.com/bryannielsen/Laravel4-Vagrant.git`
-* run `vagrant up` inside the newly created directory
-* (the first time you run vagrant it will need to fetch the virtual box image which is ~300mb so depending on your download speed this could take some time)
-* Vagrant will then use puppet to provision the base virtual box with our LAMP stack (this could take a few minutes) also note that composer will need to fetch all of the packages defined in the app's composer.json which will add some more time to the first provisioning run
-* You can verify that everything was successful by opening http://localhost:8888 in a browser
-
-*Note: You may have to change permissions on the www/app/storage folder to 777 under the host OS* 
-
-For example: `chmod -R 777 www/app/storage/`
+## 準備
 
 
-## Usage
+* このリポジトリをクローンします。`git clone https://github.com/HiroKws/Laravel4-Vagrant`
+* 新しく生成されたディレクトリーに移動し、`vagrant up`を実行します。
+* 最初に実行する時、Vagrantは仮想Boxイメージを取得する必要があります。転送速度は~300mb程度ですので、ダウンロード速度により多少の時間はかかります。
+* 続いてVagrantはパペットを使い、基本的な仮想Boxに対しLAMP関係の設定をします。(数分かかります。)、それからComposerのapp中のcomposer.jsonで定義されている全てのパッケージを取得する必要がありますので、最初の準備ではもう少し時間がかかります。
+* 全て上手く行ったかどうか確認するためには、ブラウザでhttp:://localhost:8888へアクセスしてください。
 
-Some basic information on interacting with the vagrant box
+*注意：多分ホスト側のOSでwww/app/storageフォルダーのパーミッションを777へ変更する必要があります。*
 
-### Port Forwards
+
+例えば：`chmod -R 777 www/app/storage/`
+
+*追加(by HiroKws)* 'vagrant up'実行中に、パッケージの取得に失敗する場合、生成されたVagrantfileをエディターで開き、一部を以下のように修正してください。
+
+    lv4_config.vm.provision :shell, :inline => "echo \"America/New_York\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+    lv4_config.vm.provision :shell, :inline => "apt-get update --fix-missing"
+    lv4_config.vm.provision :puppet do |puppet|
+
+真ん中の行、apt-get updateを実行する一行を加えます。（５月６日、Twitterにより作者の方に確認しました。）
+
+
+## 使用法
+
+VagrantのBoxに関係した基本的な設定情報です。
+
+### ポートフォワード
 
 * 8888 - Apache
-* 8889 - MySQL 
+* 8889 - MySQL
 * 5433 - PostgreSQL
 
 
-### Default MySQL/PostgreSQL Database
+### デフォルトMySQL/PostgreSQLデータベース
 
 * User: root
 * Password: root
@@ -42,35 +55,34 @@ Some basic information on interacting with the vagrant box
 
 ### PHP XDebug
 
-XDebug is included in the build but **disabled by default** because of the effect it can have on performance.  
+XDebugはビルドに含まれていますが、**デフォルトでは使用可能にしていません。** パフォーマンスに影響を与えるためです。
 
-To enable XDebug:
+#### XDebugを有効にする
 
-1. Set the variable `$use_xdebug = "1"` at the beginning of `puppet/manifests/phpbase.pp`
-2. Then you will need to provision the box either with `vagrant up` or by running the command `vagrant provision` if the box is already up
-3. Now you can connect to XDebug on **port 9001**
+1. `puppet/manifests/phpbase.pp`の先頭を`$use_xdebug = "1"`に設定する
+2. 続いて`vagrant up`でBoxの準備を行います。もし、既に準備済みであれば`vagrant provision`コマンドを使用してください。
+3. これで、**9001ポート**でXDebugが使用できます。
 
-**XDebug Tools**
+**XDebugツール**
 
-* [SublimeXDebug](https://github.com/Kindari/SublimeXdebug) - Free, SublimeText plugin
-* [MacGDBP](http://www.bluestatic.org/software/macgdbp/) - Free, Mac OSX
-* [Codebug](http://www.codebugapp.com/) - Paid, Mac OSX
+* [SublimeXDebug](https://github.com/Kindari/SublimeXdebug) - 無料のSublimeTextプラグイン
+* [MacGDBP](http://www.bluestatic.org/software/macgdbp/) - 無料のMac OSXツール
+* [Codebug](http://www.codebugapp.com/) - 有料のMac OSXツール
 
 
-_Note: All XDebug settings can be configured in the php.ini template at `puppet/modules/php/templates/php.ini.erb`_
-
+_注目：全XDebugの設定は`puppet/modules/php/templates/php.ini.erb`の中のphp.iniテンプレートで変更可能です。_
 
 ### Vagrant
 
-Vagrant is [very well documented](http://vagrantup.com/v1/docs/index.html) but here are a few common commands:
+Vagrantには[英語で書かれた素晴らしいドキュメント](http://vagrantup.com/v1/docs/index.html) がありますが、いくつかのコマンドを紹介します。
 
-* `vagrant up` starts the virtual machine and provisions it
-* `vagrant suspend` will essentially put the machine to 'sleep' with `vagrant resume` waking it back up
-* `vagrant halt` attempts a graceful shutdown of the machine and will need to be brought back with `vagrant up`
-* `vagrant ssh` gives you shell access to the virtual machine
+* `vagrant up` 仮想マシンを開始し準備する
+* `vagrant suspend` 基本的にマシンを'sleep'状態にします。バックアップを利用し再開するには`vagrant resume`を使用します。
+* `vagrant halt` マシンをシャットダウンします。再開には'vagrant up'を実行します。
+* `vagrant ssh` 仮想マシンへシェルアクセスします。
 
 ----
-##### Virtual Machine Specifications #####
+##### 仮想マシンのスペック #####
 
 * OS     - Ubuntu 12.04
 * Apache - 2.2.22
