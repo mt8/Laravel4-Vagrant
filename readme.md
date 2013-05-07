@@ -106,3 +106,8 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
     : Operation CREATE USER failed for 'root'@'%'
 
 スクリプトの一番最後であり、差し支えないものと思われます。既に最初のup実行でrootユーザーが作成されているにも関わらず、CREATE USERでユーザーを再度作成しようとし、エラーになっているものと考えられます。（多分CREATE USERの代わりにGRANTで行えば回避できるかと思われますが、現状でも差し支えなさそうなため、試していません。）
+
+#### 日本語版参照
+
+* [VagrantのUbuntu12.04+Laravel4ボックス](http://kore1server.com/141/Vagrant%E3%81%AEUbuntu12.04%2BLaravel4%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9)
+* [Laravel4 Boxをもっと便利に](http://kore1server.com/143/Laravel4+Box%E3%82%92%E3%82%82%E3%81%A3%E3%81%A8%E4%BE%BF%E5%88%A9%E3%81%AB)
