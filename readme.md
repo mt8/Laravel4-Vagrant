@@ -1,4 +1,3 @@
-=======
 # Laravel + Vagrant
 
 Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
@@ -8,6 +7,9 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 * `vagrant up`時にフェッチエラーが発生時、スクリプトが正常に終了しないため、Vagrantfileでapt-get...fix-missingを実行するように追加（問い合わせに対し、作者の方が答えて下さった内容を適用しました。）
 
 さらにこのxdebug/japaneseブランチでは、下記で説明してあるXDebugを有効にする方法を設定してあります。（動作確認はしておりません。）
+
+* 一度作成した仮想マシンを再パッケージし使用する場合のVagrantfileをVagrantfile2として追加しました。
+
 
 ## 動作要件
 
