@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Execute suspend vagrant command in this directory
+
+filePath=`readlink -f $0`
+cd $(dirname $filePath);
+
+vagrant suspend
