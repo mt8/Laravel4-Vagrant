@@ -5,6 +5,7 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。以下の変更を加えてあります。
 
 * `vagrant up`時にフェッチエラーが発生時、スクリプトが正常に終了しないため、Vagrantfileでapt-get...fix-missingを実行するように追加（問い合わせに対し、作者の方が答えて下さった内容を適用しました。）
+* 二回目以降の`vagrant up`でMySQLの同一ユーザーを作成しようとしてエラーになる不具合を修正しました。
 * 自分好みの変更を簡単に付け加えられるようにmySetup.shを追加しました。
 * 一度作成した仮想マシンを再パッケージし使用する場合のサンプルVagrantfileをVagrantfile2として追加しました。
 * 仮想マシンのディレクトリー以外からsuspend、Vagrantコマンドを実行するlinuxのbashスクリプトを追加しました。
@@ -101,14 +102,14 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 3. 念の為、vagrant box remove precise32 virtualboxを実行（Vagrantにより保存されているPrecise32 boxをパージする）
 4. vagrant upを実行
 
-一度haltし、その後upで再起動すると以下のエラーが発生するようです。
+オリジナル英語版のボックスでは一度haltし、その後upで再起動すると以下のエラーが発生します。
 
     ERROR
     1396 (HY000)
     at line 1
     : Operation CREATE USER failed for 'root'@'%'
 
-スクリプトの一番最後であり、差し支えないものと思われます。既に最初のup実行でrootユーザーが作成されているにも関わらず、CREATE USERでユーザーを再度作成しようとし、エラーになっているものと考えられます。（多分CREATE USERの代わりにGRANTで行えば回避できるかと思われますが、現状でも差し支えなさそうなため、試していません。）
+この日本語翻訳版では修正しました。
 
 ##### 追加設定スクリプト
 
@@ -126,7 +127,7 @@ execinは`vagrant`コマンドをそのままシェルの存在するディレ�
 
 suspendはその名の通り、`vagrant suspend`を実行します。前記のexecinは引数を取りますが、GUIでスクリプトを指定する場合、引数を指定できないことがあるため、suspend動作をさせるためだけのスクリプトを作成しました。コピーし、スクリプト内のコマンドを変更すれば、他のコマンドも簡単に実行できます。
 
-ただし、suspendはBashを終了させてしまうコマンドですので、実行させるにはコマンドのパスを忘れずに指定してください。
+ただし、suspendはBashを終了させてしまうコマンドと同名ですので、実行させるにはコマンドのパスを忘れずに指定してください。
 
 #### 日本語版参照
 
