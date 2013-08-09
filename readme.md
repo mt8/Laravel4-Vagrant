@@ -1,6 +1,4 @@
-# Laravel + Vagrant
-
-Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
+# Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 
 このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。以下の変更を加えてあります。
 
@@ -29,7 +27,6 @@ Ubuntu 12.04 Vagrant + [Laravel4](http://four.laravel.com)+ PHP 5.4.
 
 *注意：多分ホスト側のOSでwww/app/storageフォルダーのパーミッションを777へ変更する必要があります。*
 
-
 例えば：`chmod -R 777 www/app/storage/`
 
 
@@ -47,9 +44,12 @@ VagrantのBoxに関係した基本的な設定情報です。
 ### デフォルトMySQL/PostgreSQLデータベース
 
 * User: root
-* Password: root
+* Password: (blank)
 * DB Name: database
 
+### PHPmyAdmin
+
+上記のユーザー情報で、http://localhost:8888/phpmyadminから、PHPmyAdminが使用できます。
 
 ### PHP XDebug
 
@@ -79,19 +79,17 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 * `vagrant halt` マシンをシャットダウンします。再開には`vagrant up`を実行します。
 * `vagrant ssh` 仮想マシンへシェルアクセスします。
 
-----
 ##### 仮想マシンのスペック
 
 * OS     - Ubuntu 12.04
 * Apache - 2.2.22
-* PHP    - 5.4.14
+* PHP    - 5.4.17
 * MySQL  - 5.5.24
 * PostgreSQL - 9.1
 * Beanstalkd - 1.4.6
 * Redis - 2.2.12
 * Memcached - 1.4.13
 
-----
 #### 日本語版追記
 
 試行錯誤の結果です。上手くupできないときは以下の方法をお試しください。
