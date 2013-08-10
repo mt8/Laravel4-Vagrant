@@ -44,7 +44,7 @@ VagrantのBoxに関係した基本的な設定情報です。
 ### デフォルトMySQL/PostgreSQLデータベース
 
 * User: root
-* Password: (blank)
+* Password: (空白)
 * DB Name: database
 
 ### PHPmyAdmin
@@ -119,7 +119,14 @@ cd /tmp/vagrant-puppet/manifests
 sudo puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes
 ~~~
 
-エラー無しに終了します。続けて、SSHでログインしたまま、多分このシェルが正しく実行された場合実行されるらしい、インストールシェルを実行しましょう。必ずsudoで実行してください。一度実行すると、消えてしまいます。
+Laravelが既にインストール済みになっている場合、再実行するとその部分がエラーになります。気にする必要はありません。後ほど、念の為、ホストマシンであればwww、SSH接続時であれば/var/wwwで、以下の実行しておきましょう。
+
+~~~
+composer update
+php artisan key:generate
+~~~
+
+続けて、SSHでログインしたまま、多分このシェルが正しく実行された場合実行されるらしい、インストールシェルを実行しましょう。必ずsudoで実行してください。一度実行すると、消えてしまいます。
 
 ~~~
 cd
