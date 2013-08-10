@@ -6,7 +6,7 @@
 Vagrant.configure("2") do |config|
 
   # 作成したボックス名を指定してください
-  config.vm.box = "ubuntu32l4"
+  config.vm.box = "ubuntu32laravel4"
 
   # SSH リトライ回数
   config.ssh.max_tries = 10
