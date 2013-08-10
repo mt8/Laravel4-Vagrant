@@ -100,35 +100,6 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 3. 念の為、vagrant box remove precise32 virtualboxを実行（Vagrantにより保存されているPrecise32 boxをパージする）
 4. vagrant upを実行
 
-#### このバージョンの注意
-
-オリジナルでも同じ現象が発生しますが、インストールの一部がうまく行っていないようです。以下のようなエラーが発生します。
-
-~~~
-The following SSH command responded with a non-zero exit status.
-Vagrant assumes that this means the command failed!
-
-cd /tmp/vagrant-puppet/manifests && puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes || [ $? -eq 2 ]
-~~~
-
-大抵の場合、二重にLaravelをインストールしようとして、失敗しているようです。
-
-この時点でホストマシンからブラウザで`localhost:8888`にアクセスし、Laravelのデモ画面が表示されているようなら、うまく行っている可能性が大きいようです。
-
-うまく動作しない場合、wwwディレクトリーの中を空にして、再度立ち上げなおしてください。
-
-~~~
-cd www
-rm -R *
-cd ..
-vagrant reload
-~~~
-
-日本語版の場合、大抵これでうまく動作します。
-
-> 今回のバージョンは安定度に欠けます。うまく動作するようになったら、[Laravel4 Boxをもっと便利に](http://kore1server.com/143/)の記事で紹介している方法で、新しいBOXを作成し、そちらを使用することをおすすめします。
->
->もしくは、Web上で公開されている、別の安定しているBOXを利用し、Laravelをインストールするしましょう。`composer create-project laravel/laravel インストールディレクトリー --prefer-dist`コマンド一発でインストール可能になりました。たいした手間はかかりません。
 
 ##### 追加設定スクリプト
 
