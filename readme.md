@@ -111,27 +111,19 @@ Vagrant assumes that this means the command failed!
 cd /tmp/vagrant-puppet/manifests && puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes || [ $? -eq 2 ]
 ~~~
 
-エラーになっているコマンドをスーパーユーザーで実行しましょう。
+大抵の場合、二重にLaravelをインストールしようとして、失敗しているようです。
+
+この時点でホストマシンからブラウザで`localhost:8888`にアクセスし、Laravelのデモ画面が表示されているようなら、うまく行っている可能性が大きいようです。
+
+うまく動作しない場合、再度立ち上げなおしてください。
 
 ~~~
-vagrant ssh
-cd /tmp/vagrant-puppet/manifests
-sudo puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes
+vagrant reload
 ~~~
 
-Laravelが既にインストール済みになっている場合、再実行するとその部分がエラーになります。気にする必要はありません。後ほど、念の為、ホストマシンであればwww、SSH接続時であれば/var/wwwで、以下の実行しておきましょう。
+これでもうまくいかない場合、wwwディレクトリーの中を空にして、再度`vagrant reload`を行なってください。
 
-~~~
-composer update
-php artisan key:generate
-~~~
-
-続けて、SSHでログインしたまま、多分このシェルが正しく実行された場合実行されるらしい、インストールシェルを実行しましょう。必ずsudoで実行してください。一度実行すると、消えてしまいます。
-
-~~~
-cd
-sudo ./postinstall.sh
-~~~
+何度か試していますが、このバージョンは安定度にかけているようです。
 
 ##### 追加設定スクリプト
 
