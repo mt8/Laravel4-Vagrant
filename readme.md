@@ -100,14 +100,31 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 3. 念の為、vagrant box remove precise32 virtualboxを実行（Vagrantにより保存されているPrecise32 boxをパージする）
 4. vagrant upを実行
 
-オリジナル英語版のボックスでは一度haltし、その後upで再起動すると以下のエラーが発生します。
+#### このバージョンの注意
 
-    ERROR
-    1396 (HY000)
-    at line 1
-    : Operation CREATE USER failed for 'root'@'%'
+オリジナルでも同じ現象が発生しますが、インストールの一部がうまく行っていないようです。以下のようなエラーが発生します。
 
-この日本語翻訳版では修正しました。
+~~~
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
+
+cd /tmp/vagrant-puppet/manifests && puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes || [ $? -eq 2 ]
+~~~
+
+エラーになっているコマンドをスーパーユーザーで実行しましょう。
+
+~~~
+vagrant ssh
+cd /tmp/vagrant-puppet/manifests
+sudo puppet apply --modulepath '/etc/puppet/modules:/tmp/vagrant-puppet/modules-0' phpbase.pp --detailed-exitcodes
+~~~
+
+エラー無しに終了します。続けて、SSHでログインしたまま、多分このシェルが正しく実行された場合実行されるらしい、インストールシェルを実行しましょう。必ずsudoで実行してください。一度実行すると、消えてしまいます。
+
+~~~
+cd
+sudo ./postinstall.sh
+~~~
 
 ##### 追加設定スクリプト
 
