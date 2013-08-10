@@ -11,10 +11,13 @@ Vagrant.configure("2") do |config|
   # SSH リトライ回数
   config.ssh.max_tries = 10
 
+  # ホスト名
+  config.vm.hostname = "laravel.local"
+
   # ポートフォワード 複数マシン作成する時はダブらないように変更します
-  config.vm.network :forwarded_port, guest: 80, host: 8888
-  config.vm.network :forwarded_port, guest: 3306, host: 8889
-  config.vm.network :forwarded_port, guest: 5432, host: 5433
+  config.vm.network :forwarded_port, guest: 80, host: 55555
+  config.vm.network :forwarded_port, guest: 3306, host: 55556
+  config.vm.network :forwarded_port, guest: 5432, host: 55557
 
   # 共有フォルダー
   config.vm.synced_folder "www/", "/var/www", :extra => 'dmode=777,fmode=777'

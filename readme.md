@@ -3,7 +3,8 @@
 このリポジトリはGithubの[bryannielsen/Laravel4-Vagrant](https://github.com/bryannielsen/Laravel4-Vagrant)の日本語フォークです。以下の変更を加えてあります。
 
 * `vagrant up`時にフェッチエラーが発生時、スクリプトが正常に終了しないため、Vagrantfileでapt-get...fix-missingを実行するように追加（問い合わせに対し、作者の方が答えて下さった内容を適用しました。）
-* 二回目以降の`vagrant up`でMySQLの同一ユーザーを作成しようとしてエラーになる不具合を修正しました。
+* Laravelインストール時の依存の不具合を修正
+* ポート番号を55555〜に修正（オリジナルで使用されているポート番号8888〜は[LANAで登録済](http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt)）
 * 自分好みの変更を簡単に付け加えられるようにmySetup.shを追加しました。
 * 一度作成した仮想マシンを再パッケージし使用する場合のサンプルVagrantfileをVagrantfile2として追加しました。
 * 仮想マシンのディレクトリー以外からsuspend、Vagrantコマンドを実行するlinuxのbashスクリプトを追加しました。
@@ -36,9 +37,9 @@ VagrantのBoxに関係した基本的な設定情報です。
 
 ### ポートフォワード
 
-* 8888 - Apache
-* 8889 - MySQL
-* 5433 - PostgreSQL
+* 55555 - Apache
+* 55556 - MySQL
+* 55557 - PostgreSQL
 
 
 ### デフォルトMySQL/PostgreSQLデータベース
@@ -99,9 +100,6 @@ Vagrantには[英語で書かれた素晴らしいドキュメント](http://vag
 2. 念の為、vagrant destroyを実行（仮想マシンを削除する）
 3. 念の為、vagrant box remove precise32 virtualboxを実行（Vagrantにより保存されているPrecise32 boxをパージする）
 4. vagrant upを実行
-
-> `warning: Could not retrieve fact fqdn`は無視して構いません。仮想マシン名がホスト名として利用されますが、Vagrantfileで設定されている名前は'laravel4'です。ホスト名として正しいのは、例えば'localhost.local'のようにピリオドで区切られた名前です。そのため、このワーニングが発生しています。
-
 
 ##### 追加設定スクリプト
 
