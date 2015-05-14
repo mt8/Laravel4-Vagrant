@@ -33,7 +33,7 @@ class laravel_app
 #        timeout => 1800,
 #    }
     exec { 'create laravel project':
-        command => "/bin/sh -c 'cd /var/www/ && git clone https://github.com/HiroKws/laravel.git .'",
+        command => "/bin/sh -c 'cd /var/www/ && git clone https://github.com/laravel/laravel.git .'",
         require => [Package['git-core'], Exec['clean www directory']],
         creates => "/var/www/composer.json",
         timeout => 1800,
